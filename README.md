@@ -1,4 +1,7 @@
-# Triangle-Solver
-A cool program that can do simple math homework problems.
+# 📐 Triangle-Solver 📐
+A simple program I made to finish my math homework faster because I wanted more time for learning computer science. 😊
+I don't suggest anyone to actually use this unless they literally NEED it. Your homework's important if u want to get smarter, especially for math.
 
 Note: This project isn't finished yet. There's definitely much more features and optimisations to implement.
+
+Make sure to read the comments around the end of the script if u want to understand how to use it.
