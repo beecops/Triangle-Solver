@@ -1,1 +1,347 @@
+import math, copy
 
+class Triangle():
+    def __init__(self, a, b, c, A, B, C):
+        self.a = a
+        self.b = b
+        self.c = c
+
+        self.A = A
+        self.B = B
+        self.C = C
+
+
+    def triangleInfo(self):
+        print(f"Side Lengths: a: {self.a}, b: {self.b}, c: {self.c}")
+        print(f"Angles: A: {self.A}, B: {self.B}, C: {self.C}")
+
+    
+    def pythagrosTheorm(self):
+        sidesArray = [self.a, self.b, self.c]
+        sidesFound = 0
+        missingSide = ""
+
+        for i in range(0, len(sidesArray), 1):
+            if sidesArray[i]:
+                sidesFound += 1
+                continue
+
+            elif i == 0:
+                missingSide = "a"
+
+            elif i == 1:
+                missingSide = "b"
+            
+            elif i == 2:
+                missingSide = "c"
+
+        print(f"Missing side: {missingSide}")
+
+        if sidesFound < 2:
+            print("Not enough info to do pythagros Theorm")
+            return
+        
+        elif sidesFound > 2:
+            print("No need to do this, you have all 3 sides already.")
+            return
+        
+        if missingSide == "c":
+            print(math.sqrt(self.a*self.a + self.b*self.b))
+            self.c = round(math.sqrt(self.a * self.a + self.b * self.b), 2)
+            return math.sqrt(self.a * self.a + self.b * self.b)
+        
+        if missingSide == "a":
+            print(math.sqrt(self.c*self.c - self.b*self.b))
+            self.a = round(math.sqrt(self.c*self.c - self.b*self.b), 2)
+            return math.sqrt(self.c*self.c - self.b*self.b)
+        
+        if missingSide == "b":
+            print(math.sqrt(self.c*self.c - self.a*self.a))
+            self.b = round(math.sqrt(self.c*self.c - self.a*self.a), 2)
+            return math.sqrt(self.c*self.c - self.a*self.a)
+        
+        
+    def sineRule(self):
+        sidesArray = [self.a, self.b, self.c]
+        anglesArray = [self.A, self.B, self.C]
+        sidesFound = 0
+        anglesFound = 0
+        missingSides = []
+        missingAngles = []
+
+        for i in range(0, 3, 1):
+            if sidesArray[i]:
+                sidesFound += 1
+
+            elif i == 0:
+                missingSides.append("a")
+
+            elif i == 1:
+                missingSides.append("b")
+
+            elif i == 2:
+                missingSides.append("c")
+
+            if anglesArray[i]:
+                anglesFound += 1
+
+            elif i == 0:
+                missingAngles.append("A")
+
+            elif i == 1:
+                missingAngles.append("B")
+
+            elif i == 2:
+                missingAngles.append("C")
+
+        if sidesFound < anglesFound:
+            #do sine rule to get side
+            
+            sideToFind = ""
+            sideToFindCorAngle = 0
+            sideKnown = 0
+            angleKnown = 0
+
+            for i in range(3):
+                if not sidesArray[i] and anglesArray[i]:
+                    if i == 0:
+                        sideToFind = "a"
+                        sideToFindCorAngle = anglesArray[i]
+                    
+                    elif i == 1:
+                        sideToFind = "b"
+                        sideToFindCorAngle = anglesArray[i]
+
+                    elif i == 2:
+                        sideToFind = "c"
+                        sideToFindCorAngle = anglesArray[i]
+
+                elif sidesArray[i] and anglesArray[i]:
+                    sideKnown = sidesArray[i]
+                    angleKnown = anglesArray[i]
+
+            print(sideToFind)
+            if sideToFind == "a":
+                formula = f"{sideToFind}/sin{sideToFindCorAngle} = {sideKnown}/sin{angleKnown}"
+                print(formula)
+                step1 = f"{sideToFind} = {sideKnown}/sin{angleKnown} * sin{sideToFindCorAngle}"
+                print(step1)
+                answer = abs(round(sideKnown/math.sin(angleKnown) * math.sin(sideToFindCorAngle), 2))
+                step2 = f"Therefore {sideToFind} = {answer}"
+                print(step2)
+                self.a = answer
+
+            elif sideToFind == "b":
+                formula = f"{sideToFind}/sin{sideToFindCorAngle} = {sideKnown}/sin{angleKnown}"
+                print(formula)
+                step1 = f"{sideToFind} = {sideKnown}/sin{angleKnown} * sin{sideToFindCorAngle}"
+                
+                answer = abs(round(sideKnown/math.sin(angleKnown) * math.sin(sideToFindCorAngle), 2))
+                step2 = f"Therefore {sideToFind} = {answer}"
+                print(step2)
+                self.b = answer
+
+            elif sideToFind == "c":
+                formula = f"{sideToFind}/sin{sideToFindCorAngle} = {sideKnown}/sin{angleKnown}"
+                print(formula)
+                step1 = f"{sideToFind} = {sideKnown}/sin{angleKnown} * sin{sideToFindCorAngle}"
+                print(step1)
+                answer = abs(round(sideKnown/math.sin(angleKnown) * math.sin(sideToFindCorAngle), 2))
+                step2 = f"Therefore {sideToFind} = {answer}"
+                print(step2)
+                self.c = answer
+
+        elif anglesFound < sidesFound:
+            #do sine rule to to get angle
+
+            angleToFind = ""
+            angleToFindCorSide = 0
+            angleKnown = 0
+            sideKnown = 0
+
+            for i in range(3):
+                if not anglesArray[i] and sidesArray[i]:
+                    if i == 0:
+                        angleToFind = "A"
+                        angleToFindCorSide = sidesArray[i]
+                    
+                    elif i == 1:
+                        angleToFind = "B"
+                        angleToFindCorSide = sidesArray[i]
+
+                    elif i == 2:
+                        angleToFind = "C"
+                        angleToFindCorSide = sidesArray[i]
+
+                elif sidesArray[i] and anglesArray[i]:
+                    sideKnown = sidesArray[i]
+                    angleKnown = anglesArray[i]
+            
+            if angleToFind == "A":
+                formula = f"sin{angleToFind}/{angleToFindCorSide} = sin{angleKnown}/{sideKnown}"
+                print(formula)
+                step1 = f"sin{angleToFind} = sin{angleKnown}/{sideKnown} * {angleToFindCorSide}"
+                print(step1)
+                answerStep1 = abs(round(math.sin(angleKnown)/sideKnown * angleToFindCorSide, 2))
+                answer = abs(round(math.degrees(math.asin(answerStep1)), 2))
+                step2 = f"Therefore {angleToFind} = {answer}"
+                print(step2)
+                self.A = answer
+
+            elif angleToFind == "B":
+                formula = f"sin{angleToFind}/{angleToFindCorSide} = sin{angleKnown}/{sideKnown}"
+                print(formula)
+                step1 = f"sin{angleToFind} = sin{angleKnown}/{sideKnown} * {angleToFindCorSide}"
+                print(step1)
+                answerStep1 = abs(round(math.sin(angleKnown)/sideKnown * angleToFindCorSide, 2))
+                answer = abs(round(math.degrees(math.asin(answerStep1)), 2))
+                step2 = f"Therefore {angleToFind} = {answer}"
+                print(step2)
+                self.B = answer
+
+            elif angleToFind == "C":
+                formula = f"sin{angleToFind}/{angleToFindCorSide} = sin{angleKnown}/{sideKnown}"
+                print(formula)
+                step1 = f"sin{angleToFind} = sin{angleKnown}/{sideKnown} * {angleToFindCorSide}"
+                print(step1)
+                answerStep1 = abs(round(math.sin(angleKnown)/sideKnown * angleToFindCorSide, 2))
+                answer = abs(round(math.degrees(math.asin(answerStep1)), 2))
+                step2 = f"Therefore {angleToFind} = {answer}"
+                print(step2)
+                self.C = answer
+                
+        else:
+            print("Not enough info to do the sine rule")
+            return
+        
+        
+    def cosineRule(self):
+        pass
+
+
+    def angleSubtractForAngle(self):
+        angles = [self.A, self.B, self.C]
+
+        missingAnglesCount = 0
+        anglesKnown = []
+        angleToFind = ""
+
+        for i in range(3):
+            if angles[i]:
+                anglesKnown.append(angles[i])
+                continue
+
+            missingAnglesCount += 1
+
+            if i == 0:
+                angleToFind = "A"
+
+            elif i == 1:
+                angleToFind = "B"
+
+            else:
+                angleToFind = "C"
+
+        if missingAnglesCount == 0:
+            print("You have all 3 angles already, no need for this")
+            return
+
+        elif missingAnglesCount == 1:   #required info acquired. calculate missing angle.
+            print(f"{angleToFind} = 180 - {anglesKnown[0]} - {anglesKnown[1]}")
+            answer = 180 - anglesKnown[0] - anglesKnown[1]
+            print(f"Therefore {angleToFind} = {answer}")
+
+            if angleToFind == "A":
+                self.A = answer
+
+            elif angleToFind == "B":
+                self.B = answer
+
+            else:
+                self.C = answer
+
+        else:
+            print("You need 2 angles to do this. you don't have enough.")
+            return   
+         
+
+    def getTriangleArea(self):
+        sides = [self.a, self.b, self.c]
+        angles = [self.A, self.B, self.C]
+
+        sidesKnownCount = 0
+        sidesKnown = []
+        anglesKnownCount = 0
+        anglesKnown = []
+
+        sidesToComputeWith = []
+        angleToComputeWith = 0
+
+        for i in range(3):
+            if sides[i]:
+                sidesKnownCount += 1
+
+                if i == 0:
+                    sidesKnown.append("a")
+
+                elif i == 1:
+                    sidesKnown.append("b")
+
+                else:
+                    sidesKnown.append("c")
+
+            if angles[i]:
+                anglesKnownCount += 1
+
+                if i == 0:
+                    anglesKnown.append("A")
+
+                elif i == 1:
+                    anglesKnown.append("B")
+
+                else:
+                    anglesKnown.append("C")
+
+        print(sidesKnown)
+        print(anglesKnown)
+
+        hashValuesDictionary = {
+            "a": 2,
+            "b": 1,
+            "c": 2
+        }
+
+        hashValueResult = 0
+
+        for side in sidesKnown:
+            hashValueResult += hashValuesDictionary.get(side, 0)
+
+        print(hashValueResult)
+
+        if hashValueResult == 5:
+            pass    #all sides are known. u can use any angle to calculate the area of the triangle. just make sure its valid
+
+        elif hashValueResult == 4:
+            pass    #only sides a and c are known. 
+
+        elif hashValueResult == 3:
+            pass    #sides a or b, or sides b or c are known. use if statement to find out which pair of sides are known.
+
+        else:
+            print("Not enough info acquired to calculate triangle area.")
+
+#When creating new triangle:
+#First 3 values are sides (a, b, c) Make sure side c is always the biggest
+#4th, 5th, 6th values are angles (A, B, C) Make sure these values dont sum up to over 180
+triangle1 = Triangle(1, 1, 2, 45, "", 90)  #the third argument must be bigger than the first and second argument. (not combined)
+#if the operations seem invalid, its ur fault, make sure to input valid triangle values.
+
+triangle1.triangleInfo()
+triangle1.pythagrosTheorm()
+triangle1.triangleInfo()
+triangle1.getTriangleArea()
+triangle1.angleSubtractForAngle()
+triangle1.triangleInfo()
+triangle1.getTriangleArea()
+
+#i'll remake this program when i have time, i dont like how this one is organised or how it works.
